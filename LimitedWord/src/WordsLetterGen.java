@@ -8,7 +8,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class wordsLetterGen {
+public class WordsLetterGen {
     public static List<String> loadWords(String filename) throws IOException {
         List<String> words = new ArrayList<>();
         // **Ai gen
@@ -22,25 +22,18 @@ public class wordsLetterGen {
         // **Ai gen end
     }
 
-    // **Replace your old extractLetterCombinations with this recursive version:
+    // Loop version: extracts all letter combinations of given length from the word list
     public static Set<String> extractLetterCombinations(List<String> words, int length) {
         Set<String> combos = new HashSet<>();
-        extractCombosFromWords(words, length, 0, combos);
+        for (String word : words) {
+            if (length <= word.length()) {
+                extractCombosFromWord(word, length, combos);
+            }
+        }
         return combos;
     }
 
-    private static void extractCombosFromWords(List<String> words, int length, int index, Set<String> combos) {
-        if (index >= words.size()) {
-            return;
-        }
-
-        String word = words.get(index);
-        if (length <= word.length()) {
-            extractCombosFromWord(word, length, combos);
-        }
-
-        extractCombosFromWords(words, length, index + 1, combos);
-    }
+    // Removed extractCombosFromWords (recursion) - not needed
 
     private static void extractCombosFromWord(String word, int length, Set<String> combos) {
         for (int i = 0; i <= word.length() - length; i++) {
@@ -48,8 +41,11 @@ public class wordsLetterGen {
         }
     }
 
-    //Picks a random substring from the set
+    // Picks a random substring from the set
     public static String getRandomCombo(Set<String> combos) {
+        if (combos == null || combos.isEmpty()) {
+            return ""; // Or throw an exception, depending on your needs
+        }
         List<String> list = new ArrayList<>(combos);
         Collections.shuffle(list);
         return list.get(0);
@@ -60,5 +56,4 @@ public class wordsLetterGen {
         String lowerInput = input.toLowerCase();
         return validWords.contains(lowerInput) && lowerInput.contains(sequence);
     }
-
 }
