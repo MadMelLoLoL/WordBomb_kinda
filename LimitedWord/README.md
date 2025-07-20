@@ -1,5 +1,6 @@
 #LimitedWord
-    **This is a word guessing game
+**This is a word guessing game
+
     You the player are given a variation of letter combinations that you can use to guess a word with the letter combination given
     in that order.
 
