@@ -1,5 +1,6 @@
 // Madison Bazan
 // 7/18/2025
+
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.List;
@@ -12,10 +13,11 @@ public class Main {
         Set<String> validWords = new HashSet<>(wordList); // **ai line
 
         
-        Set<String> allCombos = new HashSet<>(); // ** ai
-        for (int length = 1; length <= 3; length++) {
+        Set<String> allCombos = new HashSet<>(); // ** ai gen: Set to hold all letter combinations
+        for (int length = 1; length <= 3; length++) { // **ai loop: Generate combinations for lengths 1 to 3
             allCombos.addAll(WordsLetterGen.extractLetterCombinations(wordList, length));
         }
+
         Scanner scnr = new Scanner(System.in);
         int totalScore = 0;
         int lives = 3;
@@ -23,7 +25,7 @@ public class Main {
         String targetCombo = WordsLetterGen.getRandomCombo(allCombos); // **Pick once per round
 
         //game loop
-        while (lives > 0) { // suggestion by ai for while loop
+        while (lives > 0) { // **ai helped me place the while loop properly
             if (targetCombo.isEmpty()) {
                 System.out.println("No letter combinations available. Game cannot continue.");
                 break;

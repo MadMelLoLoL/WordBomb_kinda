@@ -11,7 +11,8 @@ import java.util.Set;
 public class WordsLetterGen {
     public static List<String> loadWords(String filename) throws IOException {
         List<String> words = new ArrayList<>();
-        // **Ai gen
+
+        // **Ai gen: Reads words from a file and returns them as a list
         try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
             String line;
             while ((line = reader.readLine()) != null) {
@@ -22,7 +23,7 @@ public class WordsLetterGen {
         // **Ai gen end
     }
 
-    // Loop version: extracts all letter combinations of given length from the word list
+    // **Loop version: extracts all letter combinations of given length from the word list (ai fixed my flawed recursion attempt)
     public static Set<String> extractLetterCombinations(List<String> words, int length) {
         Set<String> combos = new HashSet<>();
         for (String word : words) {
@@ -33,25 +34,26 @@ public class WordsLetterGen {
         return combos;
     }
 
-    // Removed extractCombosFromWords (recursion) - not needed
-
+    //Extracts all substrings of a given length from a single word
     private static void extractCombosFromWord(String word, int length, Set<String> combos) {
         for (int i = 0; i <= word.length() - length; i++) {
             combos.add(word.substring(i, i + length));
         }
     }
 
-    // Picks a random substring from the set
+    // **Picks a random substring from the set (if statement ai gen)
     public static String getRandomCombo(Set<String> combos) {
-        if (combos == null || combos.isEmpty()) {
-            return ""; // Or throw an exception, depending on your needs
+
+        if (combos == null || combos.isEmpty()) { // **ai if statement
+            return ""; //throws an error if no combos available (should be humanly impossible, mainly for debugging)
         }
+
         List<String> list = new ArrayList<>(combos);
         Collections.shuffle(list);
         return list.get(0);
     }
 
-    //Checks if a word is valid (exists in list and contains the sequence)
+    //Checks if the input word is valid and contains the target letter sequence
     public static boolean isValidWord(String input, String sequence, Set<String> validWords) {
         String lowerInput = input.toLowerCase();
         return validWords.contains(lowerInput) && lowerInput.contains(sequence);
